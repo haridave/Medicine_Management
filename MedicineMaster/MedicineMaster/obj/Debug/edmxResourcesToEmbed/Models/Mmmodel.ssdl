@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MedicineMasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="StreetName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PostalCode" Type="int" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemId" />
+    </Key>
+    <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemCode" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TotalQuantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="CostPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SellingPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="GST" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ExpireyDate" Type="datetime" Nullable="false" />
+    <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
+    <Property Name="PrescriptionDate" Type="datetime" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prescription">
+    <Key>
+      <PropertyRef Name="PrescriptionId" />
+    </Key>
+    <Property Name="PrescriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Reference" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MedicineMaster.dbo.PrescriptionItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="PrescriptionItem">
+    <Key>
+      <PropertyRef Name="PrescriptionItemId" />
+      <PropertyRef Name="PresriptionId" />
+      <PropertyRef Name="Description" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="UnitPrice" />
+      <PropertyRef Name="ItemId" />
+    </Key>
+    <Property Name="PrescriptionItemId" Type="int" Nullable="false" />
+    <Property Name="PresriptionId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ItemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="PurchaseId" />
+    </Key>
+    <Property Name="PurchaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="ReferenceNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseItem">
+    <Key>
+      <PropertyRef Name="PurchaseItemId" />
+    </Key>
+    <Property Name="PurchaseItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurchaseId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ItemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supllier">
+    <Key>
+      <PropertyRef Name="SupplierId" />
+    </Key>
+    <Property Name="SupplierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="StreetName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PostalCode" Type="int" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Item_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prescription_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Prescription" Type="Self.Prescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Prescription">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrescriptionItem_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="PrescriptionItem" Type="Self.PrescriptionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemId" />
+      </Principal>
+      <Dependent Role="PrescriptionItem">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrescriptionItem_Prescription">
+    <End Role="Prescription" Type="Self.Prescription" Multiplicity="1" />
+    <End Role="PrescriptionItem" Type="Self.PrescriptionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prescription">
+        <PropertyRef Name="PrescriptionId" />
+      </Principal>
+      <Dependent Role="PrescriptionItem">
+        <PropertyRef Name="PresriptionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchase_Supllier">
+    <End Role="Supllier" Type="Self.Supllier" Multiplicity="1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supllier">
+        <PropertyRef Name="SupplierId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseItem_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="PurchaseItem" Type="Self.PurchaseItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemId" />
+      </Principal>
+      <Dependent Role="PurchaseItem">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseItem_Purchase">
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="1" />
+    <End Role="PurchaseItem" Type="Self.PurchaseItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Purchase">
+        <PropertyRef Name="PurchaseId" />
+      </Principal>
+      <Dependent Role="PurchaseItem">
+        <PropertyRef Name="PurchaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MedicineMasterModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prescription" EntityType="Self.Prescription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseItem" EntityType="Self.PurchaseItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supllier" EntityType="Self.Supllier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrescriptionItem" EntityType="Self.PrescriptionItem" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [PrescriptionItem].[PrescriptionItemId] AS [PrescriptionItemId], 
+    [PrescriptionItem].[PresriptionId] AS [PresriptionId], 
+    [PrescriptionItem].[Description] AS [Description], 
+    [PrescriptionItem].[Quantity] AS [Quantity], 
+    [PrescriptionItem].[UnitPrice] AS [UnitPrice], 
+    [PrescriptionItem].[ItemId] AS [ItemId]
+    FROM [dbo].[PrescriptionItem] AS [PrescriptionItem]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prescription_Customer" Association="Self.FK_Prescription_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Prescription" EntitySet="Prescription" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrescriptionItem_Item" Association="Self.FK_PrescriptionItem_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="PrescriptionItem" EntitySet="PrescriptionItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrescriptionItem_Prescription" Association="Self.FK_PrescriptionItem_Prescription">
+      <End Role="Prescription" EntitySet="Prescription" />
+      <End Role="PrescriptionItem" EntitySet="PrescriptionItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchase_Supllier" Association="Self.FK_Purchase_Supllier">
+      <End Role="Supllier" EntitySet="Supllier" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseItem_Item" Association="Self.FK_PurchaseItem_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="PurchaseItem" EntitySet="PurchaseItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseItem_Purchase" Association="Self.FK_PurchaseItem_Purchase">
+      <End Role="Purchase" EntitySet="Purchase" />
+      <End Role="PurchaseItem" EntitySet="PurchaseItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<MedicineMaster.Models.Item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SellingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GST)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpireyDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrescriptionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SellingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GST)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpireyDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrescriptionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemId })
+        </td>
+    </tr>
+}
+
+</table>
